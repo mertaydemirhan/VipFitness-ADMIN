@@ -1,0 +1,32 @@
+﻿.menu {
+    background-color: black;
+    color: white;
+    width: 200px; /* Menü genişliği */
+    height: 100vh; /* Sayfanın tam yüksekliği */
+    position: fixed; /* Menüyü sabit tutar */
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    text-align: center; /* Butonları ortala */
+}
+
+    .menu button {
+        width: 80%; /* Buton genişliği, menünün yüzde 80'ine kadar */
+        margin-bottom: 10px; /* Butonlar arası boşluk */
+    }
+
+    .menu .btn-outline-info {
+        color: white;
+        border-color: white;
+    }
+
+        .menu .btn-outline-info:hover {
+            background-color: white;
+            color: black;
+        }
+
+.content {
+    margin-left: 220px; /* Menü genişliği + sağ boşluk */
+    margin-top: 20px;
+    text-align: center;
+}

@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>VipFitness_ADMIN</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\Content\Bootstrap\**" />
+    <Compile Remove="wwwroot\Content\NewFolder1\**" />
+    <Content Remove="wwwroot\Content\Bootstrap\**" />
+    <Content Remove="wwwroot\Content\NewFolder1\**" />
+    <EmbeddedResource Remove="wwwroot\Content\Bootstrap\**" />
+    <EmbeddedResource Remove="wwwroot\Content\NewFolder1\**" />
+    <None Remove="wwwroot\Content\Bootstrap\**" />
+    <None Remove="wwwroot\Content\NewFolder1\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Content\Login\css\Login.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.4" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.0.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Trainings\" />
+    <Folder Include="wwwroot\Content\js\" />
+  </ItemGroup>
+
+</Project>

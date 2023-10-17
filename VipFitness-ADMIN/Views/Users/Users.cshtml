@@ -1,0 +1,245 @@
+﻿@model IEnumerable<VipFitness_ADMIN.Models.UserModel>
+
+@{
+    ViewData["Title"] = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- JS Dosyaları -->
+<script src="~/Content/js/jquery-3.7.0.js"></script>
+<script src="~/Content/js/jquery.dataTables.min.js"></script>
+<script src="~/Content/js/dataTables.buttons.min.js"></script>
+<script src="~/Content/js/bootstrap.bundle.min.js"></script>
+<script src="~/Content/js/jszip.min.js"></script>
+<script src="~/Content/js/buttons.html5.min.js"></script>
+<script src="~/Content/js/buttons.print.min.js"></script>
+<script src="~/Content/js/sweetalert2.all.min.js"></script>
+
+<!-- CSS Dosyaları -->
+<link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+<link rel="stylesheet" href="~/Content/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="~/Content/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="~/Content/css/sweetalert2.min.css" />
+
+<style>
+    .custom-label {
+        font-weight: bold;
+        font-size: 16px;
+        color: #007bff; /* Özel renk belirleme */
+        /* Diğer stil özelliklerini ekleyebilirsiniz */
+    }</style>
+
+@* <link href="~/content/users/users.css" rel="stylesheet" /> *@
+
+<div class="container">
+
+    <div class="col-md-12">
+        <div class="card">
+
+            <div class="card-header">
+                <h4>Vip Fitness Kullanıcı Listesi</h4>
+            </div>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CreateModal">
+                Yeni Kayıt Ekle
+            </button>
+
+
+            <div class="modal fade" tabindex="-1" id="CreateModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Yeni Kayıt Ekle</h5>
+                            @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> *@
+                        </div>
+                        <div class="modal-body">
+                            <!-- Form Başlangıcı -->
+                            <form method="post" asp-action="CreateUser" asp-controller="Users" id="CreateUserFrm">
+                                @Html.AntiForgeryToken()
+                                <!-- Kullanıcı Adı Alanı -->
+                                <div class="mb-3">
+                                    <label for="username" class="form-label custom-label">Kullanıcı Adı</label>
+                                    <input type="text" class="form-control" id="create-username" name="username" placeholder="Kullanıcı Adınızı Girin" required>
+                                </div>
+
+                                <!-- Şifre Alanı -->
+                                <div class="mb-3">
+                                    <label for="password" class="form-label custom-label">Şifre</label>
+                                    <input type="password" class="form-control" id="create-password" name="password" placeholder="Şifrenizi Girin" required>
+                                </div>
+
+                                <!-- Kullanıcı Türü Alanı (Smallint) -->
+                                <div class="mb-3">
+                                    <label for="UType" class="form-label custom-label">Kullanıcı Türü</label>
+                                    <select class="form-select" id="create-UType" name="UTypeString" required>
+                                        <option value="0">Super Admin</option>
+                                        <option value="1">Admin</option>
+                                        <option value="2">Kullanıcı</option>
+                                    </select>
+                                </div>
+
+                                <input type="hidden" name="isdeleted" value="false" />
+
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                                    <button type="submit" formaction="CreateUser" class="btn btn-primary">Kaydet</button>
+                                </div>
+                            </form>
+                            <!-- Form Sonu -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DÜZENLEME BÖLÜMÜ AŞAĞIDA BAŞLAMAKTADIR.-->
+            <div class="modal" tabindex="-1" id="eModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Yeni Kayıt Ekle</h5>
+                            @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> *@
+                        </div>
+                        <div class="modal-body">
+                            <!-- Form Başlangıcı -->
+                            <form method="post" asp-action="Edit" asp-controller="Users" id="EditUserFrm">
+                                @Html.AntiForgeryToken()
+                                <!-- Kullanıcı Adı Alanı -->
+                                <div class="mb-3">
+                                    <label for="username" class="form-label custom-label">Kullanıcı Adı</label>
+                                    <input type="text" class="form-control" id="Edit-username" name="username" required>
+                                </div>
+
+                                <!-- Şifre Alanı -->
+                                <div class="mb-3">
+                                    <label for="password" class="form-label custom-label">Şifre</label>
+                                    <input type="password" class="form-control" id="Edit-password" name="password" placeholder="Şifre değiştirmek için yeni şifreyi girin">
+                                </div>
+
+                                <!-- Kullanıcı Türü Alanı (Smallint) -->
+                                <div class="mb-3">
+                                    <label for="UType" class="form-label custom-label">Kullanıcı Türü</label>
+                                    <select class="form-select" id="Edit-UType" name="UType" required>
+                                        <option value="0">Super Admin</option>
+                                        <option value="1">Admin</option>
+                                        <option value="2">Kullanıcı</option>
+                                    </select>
+                                </div>
+
+                                <input type="hidden" name="isdeleted" value="false" />
+                                <input type="hidden" name="id" id="id" />
+
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                                    <button type="submit" formaction="Edit" class="btn btn-primary">Kaydet</button>
+                                </div>
+                            </form>
+                            <!-- Form Sonu -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--   TABLO LİSTELEME BÖLÜMÜ AŞAĞIDA BAŞLAMAKTADIR.-->
+            <div class="card-body">
+
+                <table class="table table-bordered table-hover" id="table_id">
+                    <thead>
+                        <tr>
+                            <th data-priority="1">Kullanıcı Adı</th>
+                            <th data-priority="1">Kullanıcı Türü</th>
+                            <th data-priority="1">Yönet</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                <td>
+                                    <span style="font-weight:bold; color:tomato; "> @Html.DisplayFor(modelItem => item.username)</span>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UTypeString)
+                                </td>
+                                <td>                                   
+                                    <button type="button" class="btn btn-primary edit-btn" data-id="@item.id">Düzenle</button>
+                                    @Html.ActionLink("Delete", "Delete", new { Id = item.id }, new { @class = "btn btn-danger", onclick = "return ConfirmDelete("+item.id+");"})
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<script>
+
+
+
+    // Datatable aktarım butonlarını aktif ettim.
+    $(document).ready(function () {
+        $('#table_id').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'excel', 'pdf', 'csv'
+            ]
+        });
+    });
+
+    // Delete butonuna tıklandığında rütuşları...  Sweet alert v.b
+    function ConfirmDelete(itemId) {
+        Swal.fire({
+            title: 'Emin misiniz?',
+            text: "Bu kaydı silmek istediğinizden emin misiniz?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Evet, Sil!',
+            cancelButtonText: 'İptal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Silme işlemi için Controller'a yönlendirme yaptım. Yönlendirme bittiğinde controller tarafında tekrar sayfayı yeniliyor.
+                // bu sebeple buraya yenileme koymadım.
+               
+                window.location.href = '/Users/Delete/' + itemId; // itemId: silinecek öğenin ID değeri
+            }
+        });
+        return false; // ActionLink'e tıklamayı iptal etmek için
+    }
+
+    $('.edit-btn').on('click', function () {
+        var userId = $(this).data('id');
+        // AJAX isteği ile kullanıcı bilgilerini getir
+        $.ajax({
+            url: '/Users/GetUserDetails/' + userId,
+            type: 'GET',
+            success: function (data) {
+                // Başarılı cevap geldiğinde modal içeriğine verileri yerleştir
+               
+                $('#Edit-username').val(data.username);
+                $('#Edit-password').val(''); // Şifreyi temizle (isteğe bağlı, şifreyi değiştirmek istemiyorsanız)
+                
+                $('#Edit-UType option[value="'+data.UType+'"]').prop('selected', true);
+                $('#EditUserFrm input[name="id"]').val(data.id);
+
+                // Modal'ı aç
+                $('#eModal').modal('show');
+                console.log(data);
+            },
+            error: function () {
+                console.log("hata var hata aloo !!");
+                console.log(data);
+            }
+        });
+    });
+    
+
+
+</script>
