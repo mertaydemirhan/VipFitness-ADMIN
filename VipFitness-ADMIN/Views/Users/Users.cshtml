@@ -143,36 +143,36 @@
 
             <!--   TABLO LİSTELEME BÖLÜMÜ AŞAĞIDA BAŞLAMAKTADIR.-->
             <div class="card-body">
-
-                <table class="table table-bordered table-hover" id="table_id">
-                    <thead>
-                        <tr>
-                            <th data-priority="1">Kullanıcı Adı</th>
-                            <th data-priority="1">Kullanıcı Türü</th>
-                            <th data-priority="1">Yönet</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover" id="table_id">
+                        <thead>
                             <tr>
-                                <td>
-                                    <span style="font-weight:bold; color:tomato; "> @Html.DisplayFor(modelItem => item.username)</span>
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.UTypeString)
-                                </td>
-                                <td>                                   
-                                    <button type="button" class="btn btn-primary edit-btn" data-id="@item.id">Düzenle</button>
-                                    @Html.ActionLink("Delete", "Delete", new { Id = item.id }, new { @class = "btn btn-danger", onclick = "return ConfirmDelete("+item.id+");"})
-                                </td>
+                                <th data-priority="1">Kullanıcı Adı</th>
+                                <th data-priority="2">Kullanıcı Türü</th>
+                                <th data-priority="3">Yönet</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
-
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <span style="font-weight:bold; color:tomato;">@Html.DisplayFor(modelItem => item.username)</span>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UTypeString)
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-sm edit-btn" data-id="@item.id">Düzenle</button>
+                                        @Html.ActionLink("Delete", "Delete", new { Id = item.id }, new { @class = "btn btn-danger btn-sm", onclick = "return ConfirmDelete("+item.id+");"})
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
 
         </div>
     </div>

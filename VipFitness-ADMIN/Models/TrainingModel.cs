@@ -6,7 +6,7 @@
         public string TrainingName { get; set; }
         public int TrainingCategory { get; set; }
         public string Explanation { get; set; }
-        public string ImgUrl { get; set; }
+        public byte[] ImgData { get; set; }
         public bool Isdeleted { get; set; }
     }
 }

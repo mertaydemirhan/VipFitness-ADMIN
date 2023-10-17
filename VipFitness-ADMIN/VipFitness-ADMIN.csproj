@@ -32,7 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Trainings\" />
     <Folder Include="wwwroot\Content\js\" />
   </ItemGroup>
 

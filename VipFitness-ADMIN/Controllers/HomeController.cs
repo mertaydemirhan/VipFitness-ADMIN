@@ -20,6 +20,11 @@ namespace VipFitness_ADMIN.Controllers
             return RedirectToAction("Users","Users"); 
         }
 
+        public ActionResult Trainings()
+        {
+            return RedirectToAction("Trainings", "Trainings");
+        }
+
 
 
     }

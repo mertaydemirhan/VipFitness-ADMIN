@@ -7,7 +7,16 @@ namespace VipFitness_ADMIN.Controllers
 {
     public class TrainingsController : Controller
     {
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         private readonly ITrainingRepository _trainingRepository;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
+        public TrainingsController(ITrainingRepository trainingRepository)
+        {
+            _trainingRepository = trainingRepository;
+        }
+
+
         public ActionResult Trainings()
         {
             var trainings = _trainingRepository.GetAllTrainings();
@@ -16,13 +25,17 @@ namespace VipFitness_ADMIN.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateTraining(TrainingModel model)
+        public IActionResult CreateTraining(TrainingModel model, IFormFile ImgData)
         {
+
+
+            // ImgData ile alakalı işlem yapılacak beklemede....
             if (model == null)
             {
                 ModelState.AddModelError("", "Geçersiz istek. Lütfen tekrar deneyin.");
                 return View("Error"); // Hata sayfasına yönlendir
             }
+
 
             bool registered = _trainingRepository.AddTraining(model);
             if (registered)

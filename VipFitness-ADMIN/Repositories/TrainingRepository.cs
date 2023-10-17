@@ -19,7 +19,7 @@ namespace VipFitness_ADMIN.Repositories
             {
                 connection.Open();
 
-                var query = "SELECT * FROM tblTraining WHERE isdeleted=0";
+                var query = "SELECT * FROM tblTrainings WHERE isdeleted=0";
                 var trainings = connection.Query<TrainingModel>(query);
 
                 return trainings;
@@ -46,8 +46,8 @@ namespace VipFitness_ADMIN.Repositories
                 {
 
                     connection.Open();
-                    var query = "INSERT INTO tblUsers(TrainingName,TrainingCategory,Explanation,ImgUrl,isdeleted) VALUES(@TrainingName,@TraningCategory,@Explanation,@ImgUrl,@IsDeleted)";
-                    var parameters = new { TrainingName = Training.TrainingName, TraningCategory = Training.TrainingCategory, Explanation = Training.Explanation, ImgUrl = Training.ImgUrl, IsDeleted = Training.Isdeleted };
+                    var query = "INSERT INTO tblTrainings(TrainingName,TrainingCategory,Explanation,ImgData,isdeleted) VALUES(@TrainingName,@TraningCategory,@Explanation,@ImgData,@IsDeleted)";
+                    var parameters = new { TrainingName = Training.TrainingName, TraningCategory = Training.TrainingCategory, Explanation = Training.Explanation, ImgData = Training.ImgData, IsDeleted = Training.Isdeleted };
                     var CreatedUser = connection.QuerySingleOrDefault<TrainingModel>(query, parameters);
 
                     return true;
@@ -67,8 +67,8 @@ namespace VipFitness_ADMIN.Repositories
                 {
                     connection.Open();
                  
-                        var query = "Update tblTrainings SET TrainingName=@TrainingName,TrainingCategory=@TraningCategory,Explanation=@Explanation,ImgUrl=@ImgUrl,isdeleted=@IsDeleted WHERE id=@ID";
-                        var parameters = new { TrainingName = Training.TrainingName, TraningCategory = Training.TrainingCategory, Explanation = Training.Explanation, ImgUrl = Training.ImgUrl, IsDeleted = Training.Isdeleted, ID= Training.Id };
+                        var query = "Update tblTrainings SET TrainingName=@TrainingName,TrainingCategory=@TraningCategory,Explanation=@Explanation,ImgData=@ImgData,isdeleted=@IsDeleted WHERE id=@ID";
+                        var parameters = new { TrainingName = Training.TrainingName, TraningCategory = Training.TrainingCategory, Explanation = Training.Explanation, ImgData = Training.ImgData, IsDeleted = Training.Isdeleted, ID= Training.Id };
                         connection.QuerySingleOrDefault<TrainingModel>(query, parameters);
                 }
             }
@@ -85,7 +85,7 @@ namespace VipFitness_ADMIN.Repositories
             {
                 connection.Open();
 
-                var query = "UPDATE tblUsers SET isdeleted=1 WHERE id = @ID";
+                var query = "UPDATE tblTrainings SET isdeleted=1 WHERE id = @ID";
                 var parameters = new { ID = Id };
                 connection.QuerySingleOrDefault<TrainingModel>(query, parameters);
             }

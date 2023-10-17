@@ -7,14 +7,17 @@
     <link rel="stylesheet" href="~/Content/css/bootstrap.min.css" />
     <script src="~/Content/js/bootstrap.bundle.min.js"> </script>
     <link href="~/Content/Home/Home.css" rel="stylesheet" />
+
+    @RenderSection("Scripts", required: false)
+
 </head>
 <body>
     <div class="menu">
-        <button class="btn btn-outline-info" onclick="redirectToController('Home', 'Home')">Home</button><br />
-        <button class="btn btn-outline-info" onclick="redirectToController('Home', 'Profile')">Profile</button><br />
-        <button class="btn btn-outline-info" disabled>Disabled</button><br />
-        <button class="btn btn-outline-info" onclick="redirectToController('Home', 'Users')">Kullanıcılar</button><br />
-        <button class="btn btn-outline-info" onclick="redirectToController('Home', 'Trainings')">Antremanlar</button><br />
+        <button class="btn btn-outline-info btn-sm" onclick="redirectToController('Home', 'Home')">Home</button><br />
+        <button class="btn btn-outline-info btn-sm" onclick="redirectToController('Home', 'Profile')">Profile</button><br />
+        <button class="btn btn-outline-info btn-sm" disabled>Disabled</button><br />
+        <button class="btn btn-outline-info btn-sm" onclick="redirectToController('Home', 'Users')">Kullanıcılar</button><br />
+        <button class="btn btn-outline-info btn-sm" onclick="redirectToController('Home', 'Trainings')">Antremanlar</button><br />
     </div>
 
     <div class="content">
