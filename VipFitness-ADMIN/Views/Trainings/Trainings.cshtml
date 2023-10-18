@@ -77,18 +77,19 @@
                                     </select>
                                 </div>
 
-                                <!-- Antreman silindimi alanı-->
+
                                 <input type="hidden" name="isdeleted" value="false" />
+                                <input type="hidden" name="ImgExt" value="false"/>
 
                                 <!-- Antreman Resim Alanı-->
                                 <div class="mb-3">
                                     <label for="resim" class="form-label custom-label">Antreman Resmi/Gif:</label>
-                                    <input type="file" class="form-control" id="ImgData" name="ImgData" accept=".jpg, .jpeg, .png, .gif" required>
+                                    <input type="file" class="form-control" id="create-ImgData" name="ImgData" accept=".jpg, .jpeg, .png, .gif" required>
                                 </div>
 
                                 <!-- Gizli div elemanları hata ve başarı mesajları için -->
-                                <div class="alert alert-danger" id="error-message" style="display: none;"></div>
-                                <div class="alert alert-success" id="success-message" style="display: none;"></div>
+                                <div class="alert alert-danger" id="error-message-create" style="display: none;"></div>
+                                <div class="alert alert-success" id="success-message-create" style="display: none;"></div>
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
@@ -102,42 +103,54 @@
             </div>
 
             <!-- DÜZENLEME BÖLÜMÜ AŞAĞIDA BAŞLAMAKTADIR.-->
-            <div class="modal" tabindex="-1" id="eModal">
+
+            <div class="modal fade" tabindex="-1" id="eModal">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Yeni Kayıt Ekle</h5>
-                            @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> *@
+                            <h5 class="modal-title">Kayıt Düzenle</h5>
                         </div>
                         <div class="modal-body">
                             <!-- Form Başlangıcı -->
-                            <form method="post" asp-action="Edit" asp-controller="Users" id="EditUserFrm">
+                            <form method="post" asp-action="Edit" asp-controller="Trainings" id="EditTrainingFrm">
                                 @Html.AntiForgeryToken()
-                                <!-- Kullanıcı Adı Alanı -->
+                                <!-- Antreman Adı Alanı -->
                                 <div class="mb-3">
-                                    <label for="username" class="form-label custom-label">Kullanıcı Adı</label>
-                                    <input type="text" class="form-control" id="Edit-username" name="username" required>
+                                    <label for="TrainingName" class="form-label custom-label">Antreman Adı</label>
+                                    <input type="text" class="form-control" id="edit-TrainingName" name="TrainingName"  required>
                                 </div>
 
-                                <!-- Şifre Alanı -->
+
+                                <!-- Açıklama Alanı-->
                                 <div class="mb-3">
-                                    <label for="password" class="form-label custom-label">Şifre</label>
-                                    <input type="password" class="form-control" id="Edit-password" name="password" placeholder="Şifre değiştirmek için yeni şifreyi girin">
+                                    <label for="Explanation" class="form-label custom-label">Açıklaması</label>
+                                    <textarea class="form-control" id="edit-Explanation" name="Explanation"></textarea>
                                 </div>
 
-                                <!-- Kullanıcı Türü Alanı (Smallint) -->
+                                <!-- Antreman grubu Alanı (Smallint) -->
                                 <div class="mb-3">
-                                    <label for="UType" class="form-label custom-label">Kullanıcı Türü</label>
-                                    <select class="form-select" id="Edit-UType" name="UType" required>
-                                        <option value="0">Super Admin</option>
-                                        <option value="1">Admin</option>
-                                        <option value="2">Kullanıcı</option>
+                                    <label for="TrainingCategory" class="form-label custom-label">Antreman Grubu</label>
+                                    <select class="form-select" id="edit-TrainingCategory" name="TrainingCategory" required>
+                                        <option value="1">1.Antreman Grubu</option>
+                                        <option value="2">2.Antreman Grubu</option>
+                                        <option value="3">3.Antreman Grubu</option>
                                     </select>
                                 </div>
 
+                                <input type="hidden" id="edit-ImgDataInput" name="ImgData" /> <!-- Düzenleme aşamasında bulunan resmi kaybetmemek için tutuluyor.-->
                                 <input type="hidden" name="isdeleted" value="false" />
-                                <input type="hidden" name="id" id="id" />
+                                <input type="hidden" id="edit-ImgExt" name="ImgExt" />
+                                <input type="hidden" name="id" />
 
+                                <!-- Antreman Resim Alanı-->
+                                <div class="mb-3">
+                                    <label for="resim" class="form-label custom-label">Antreman Resmi/Gif:</label>
+                                    <img id="edit-ImgData" src="" alt="Antreman Resmi" class="img-fluid" style="max-width: 100%;" />
+                                </div>
+
+                                <!-- Gizli div elemanları hata ve başarı mesajları için -->
+                                <div class="alert alert-danger" id="error-message-edit" style="display: none;"></div>
+                                <div class="alert alert-success" id="success-message-edit" style="display: none;"></div>
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
@@ -172,11 +185,24 @@
                                     <td>@item.TrainingName</td>
                                     <td>@item.TrainingCategory</td>
                                     <td>@item.Explanation</td>
-                                    <td>@item.ImgData</td>
+                                    <td>
+                                        @{
+                                            if (item.ImgData != null && item.ImgData.Length > 0)
+                                            {
+                                                string base64 = Convert.ToBase64String(item.ImgData);
+                                                string imgSrc = $"data:image/png;base64,{base64}";
+                                                    <img src="@imgSrc" alt="Resim" width="100" height="100" />
+                                            }
+                                            else
+                                            {
+                                                    <span>Resim Yok</span>
+                                            }
+                                        }
+                                    </td>
                                     <td>@item.Isdeleted</td>
                                     <td>
                                         <button type="button" class="btn btn-primary btn-sm edit-btn" data-id="@item.Id">Düzenle</button>
-                                        @Html.ActionLink("Delete", "Delete", new { Id = item.Id }, new { @class = "btn btn-danger btn-sm delete-btn", onclick = "return ConfirmDelete("+item.Id+");" })
+                                        @Html.ActionLink("Kayıt Sil", "Delete", new { Id = item.Id }, new { @class = "btn btn-danger btn-sm delete-btn", onclick = "return ConfirmDelete("+item.Id+");" })
                                     </td>
                                 </tr>
                             }
@@ -200,9 +226,8 @@
             $('#submit-button-create').click(function () {
                 event.preventDefault();
                 var formData = new FormData($('#CreateTrainingFrm')[0]);
-                var fileInput = document.getElementById('ImgData');
+                var fileInput = document.getElementById('create-ImgData');
                 formData.append('ImgData', fileInput.files[0]);
-                debugger;
                 $.ajax({
                     url: '/Trainings/CreateTraining',
                     type: 'POST',
@@ -211,23 +236,26 @@
                     contentType: false,
                     success: function (data) {
                         if (data.success) {
-                            $('#success-message').text('Antrenman başarıyla oluşturuldu.');
-                            $('#success-message').show();
-                            $('#error-message').hide();
+                            console.log("data success : " + data.success);                            
+                            $('#success-message-create').text('Antrenman başarıyla oluşturuldu.');
+                            $('#success-message-create').show();
+                            $('#error-message-create').hide();
+
                             setTimeout(function () {
                                 $('#CreateModal').modal('hide');
-                                // İhtiyaca göre sayfa yenileme işlemi yapabilirsiniz.
-                            }, 2000);
+                                location.reload();
+                            }, 800);
                         } else {
-                            $('#error-message').text(data.message);
-                            $('#error-message').show();
-                            $('#success-message').hide();
+                            console.log("data success : " + data.success);
+                            $('#error-message-create').text(data.message);
+                            $('#error-message-create').show();
+                            $('#success-message-create').hide();
                         }
                     },
                     error: function (xhr, status, error) {
-                        $('#error-message').text('Bir hata oluştu: ' + xhr.responseText);
-                        $('#error-message').show();
-                        $('#success-message').hide();
+                        $('#error-message-create').text('Bir hata oluştu: ' + xhr.responseText);
+                        $('#error-message-create').show();
+                        $('#success-message-create').hide();
                     }
                 });
             });
@@ -267,7 +295,7 @@
                 // Silme işlemi için Controller'a yönlendirme yaptım. Yönlendirme bittiğinde controller tarafında tekrar sayfayı yeniliyor.
                 // bu sebeple buraya yenileme koymadım.
 
-                window.location.href = '/Users/Delete/' + itemId; // itemId: silinecek öğenin ID değeri
+                window.location.href = '/Trainings/Delete/' + itemId; // itemId: silinecek öğenin ID değeri
             }
         });
         return false; // ActionLink'e tıklamayı iptal etmek için
@@ -275,22 +303,34 @@
 
     $('.edit-btn').on('click', function () {
         var userId = $(this).data('id');
-        // AJAX isteği ile kullanıcı bilgilerini getir
+        // AJAX isteği ile antreman bilgilerini getir
         $.ajax({
-            url: '/Users/GetUserDetails/' + userId,
+            url: '/Trainings/GetTrainingDetails/' + userId,
             type: 'GET',
             success: function (data) {
                 // Başarılı cevap geldiğinde modal içeriğine verileri yerleştir
-
-                $('#Edit-username').val(data.username);
-                $('#Edit-password').val(''); // Şifreyi temizle (isteğe bağlı, şifreyi değiştirmek istemiyorsanız)
-
-                $('#Edit-UType option[value="' + data.UType + '"]').prop('selected', true);
-                $('#EditUserFrm input[name="id"]').val(data.id);
-
-                // Modal'ı aç
-                $('#eModal').modal('show');
+                console.log("hata yok");
                 console.log(data);
+                $('#edit-TrainingName').val(data.trainingName);
+                $('#edit-Explanation').val(data.explanation);
+
+                $('#edit-TrainingCategory option[value="' + data.trainingCategory + '"]').prop('selected', true);
+                $('#EditTrainingFrm input[name="id"]').val(data.id);
+
+                // Resmi modal içinde göster
+
+                if (data.imgDataString) {
+                    var imgDataUrl = 'data:image/png;base64,' + data.imgDataString; // veya uygun uzantıya göre
+                    $('#edit-ImgData').attr('src', imgDataUrl);
+                    document.getElementById('edit-ImgExt').value = data.imgExt;
+                    $('#edit-ImgDataInput').val(data.imgData);
+                } else {
+                    $('#edit-ImgData').attr('src', 'varsayilan-resim-yolu.png');
+                    $('#edit-ImgDataInput').val('');
+                    document.getElementById('edit-ImgExt').value = '';
+                }
+
+                $('#eModal').modal('show');
             },
             error: function () {
                 console.log("hata var hata aloo !!");
@@ -298,6 +338,7 @@
             }
         });
     });
+
 
 
 

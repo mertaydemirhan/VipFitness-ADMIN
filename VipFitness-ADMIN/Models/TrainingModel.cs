@@ -8,5 +8,7 @@
         public string Explanation { get; set; }
         public byte[] ImgData { get; set; }
         public bool Isdeleted { get; set; }
+        public string? ImgExt { get; set; }
+        public string ImgDataString { get; set; }
     }
 }
