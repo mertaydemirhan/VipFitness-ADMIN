@@ -163,6 +163,7 @@
                                         @Html.DisplayFor(modelItem => item.UTypeString)
                                     </td>
                                     <td>
+                                        @Html.ActionLink("Antreman Ekle","", new{Id = item.id}, new{ @class = "btn btn-success btn-sm", onclick="return AddTrainingToUser("+item.id+");"})
                                         <button type="button" class="btn btn-primary btn-sm edit-btn" data-id="@item.id">Düzenle</button>
                                         @Html.ActionLink("Delete", "Delete", new { Id = item.id }, new { @class = "btn btn-danger btn-sm", onclick = "return ConfirmDelete("+item.id+");"})
                                     </td>
@@ -205,8 +206,6 @@
             cancelButtonText: 'İptal',
         }).then((result) => {
             if (result.isConfirmed) {
-                // Silme işlemi için Controller'a yönlendirme yaptım. Yönlendirme bittiğinde controller tarafında tekrar sayfayı yeniliyor.
-                // bu sebeple buraya yenileme koymadım.
                
                 window.location.href = '/Users/Delete/' + itemId; // itemId: silinecek öğenin ID değeri
             }

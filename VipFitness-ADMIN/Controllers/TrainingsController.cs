@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using VipFitness_ADMIN.Models;
 using VipFitness_ADMIN.Repositories;
 
@@ -20,7 +21,23 @@ namespace VipFitness_ADMIN.Controllers
         public ActionResult Trainings()
         {
             var trainings = _trainingRepository.GetAllTrainings();
-            return View(trainings);
+            var categories = _trainingRepository.GetTrainingCategories();
+            var trainingModels = trainings.Select(training => new TrainingModel
+            {
+                Id = training.Id,
+                TrainingName = training.TrainingName,
+                TrainingCategoryId = training.TrainingCategoryId, 
+                Explanation = training.Explanation,
+                ImgData = training.ImgData,
+                Isdeleted = training.Isdeleted,
+                ImgExt = training.ImgExt,
+                ImgDataString = training.ImgDataString,
+                TrainingCat = categories
+            });
+
+            ViewBag.TrainingCategories = new SelectList(categories, "Id", "CategoryName");
+
+            return View(trainingModels);
         }
 
         [HttpPost]
@@ -65,13 +82,6 @@ namespace VipFitness_ADMIN.Controllers
         }
 
 
-        //public JsonResult GetTrainingDetails(int Id)
-        //{
-        //    var training = _trainingRepository.GetTrainingById(Id);
-
-
-        //    return Json(training);
-        //}
 
         public JsonResult GetTrainingDetails(int Id)
         {

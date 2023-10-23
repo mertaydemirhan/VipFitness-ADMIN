@@ -9,5 +9,6 @@ namespace VipFitness_ADMIN.Repositories
         bool AddTraining(TrainingModel Training);
         void UpdateTraining(TrainingModel Training);
         void DeleteTraining(int TrainingId);
+        IEnumerable<TrainingCategory> GetTrainingCategories();
     }
 }

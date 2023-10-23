@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using VipFitness_ADMIN.Controllers;
 using System.Reflection;
 using Microsoft.IdentityModel.Tokens;
+using NuGet.Protocol;
 
 namespace VipFitness_ADMIN.Repositories
 {
@@ -14,7 +15,14 @@ namespace VipFitness_ADMIN.Repositories
         {
             connstring = configuration.GetConnectionString("DefaultConnection");
         }
-
+        public IEnumerable<TrainingCategory> GetTrainingCategories()
+        {
+            using (var connection = new SqlConnection(connstring))
+            {
+                string query = "SELECT * FROM tblTrainingCategory";
+                return connection.Query<TrainingCategory>(query);
+            }
+        }
         public IEnumerable<TrainingModel> GetAllTrainings()
         {
             using (var connection = new SqlConnection(connstring))
@@ -23,7 +31,6 @@ namespace VipFitness_ADMIN.Repositories
 
                 var query = "SELECT * FROM tblTrainings WHERE isdeleted=0";
                 var trainings = connection.Query<TrainingModel>(query);
-
                 return trainings;
             }
         }
@@ -49,8 +56,8 @@ namespace VipFitness_ADMIN.Repositories
 
                     connection.Open();
                     string base64String = Convert.ToBase64String(Training.ImgData);
-                    var query = "INSERT INTO tblTrainings(TrainingName,TrainingCategory,Explanation,ImgData,isdeleted,ImgExt) VALUES(@TrainingName,@TraningCategory,@Explanation,@ImgData,@IsDeleted,@ImgExt)";
-                    var parameters = new { TrainingName = Training.TrainingName, TraningCategory = Training.TrainingCategory, Explanation = Training.Explanation, ImgData = base64String, IsDeleted = Training.Isdeleted, ImgExt = Training.ImgExt };
+                    var query = "INSERT INTO tblTrainings(TrainingName,TrainingCategoryId,Explanation,ImgData,isdeleted,ImgExt) VALUES(@TrainingName,@TraningCategory,@Explanation,@ImgData,@IsDeleted,@ImgExt)";
+                    var parameters = new { TrainingName = Training.TrainingName, TraningCategory = Training.TrainingCategoryId, Explanation = Training.Explanation, ImgData = Training.ImgData, IsDeleted = Training.Isdeleted, ImgExt = Training.ImgExt };
                     var CreatedUser = connection.QuerySingleOrDefault<TrainingModel>(query, parameters);
 
                     return true;
@@ -70,8 +77,8 @@ namespace VipFitness_ADMIN.Repositories
                 {
                     connection.Open();
                  
-                        var query = "Update tblTrainings SET TrainingName=@TrainingName,TrainingCategory=@TraningCategory,Explanation=@Explanation,ImgData=@ImgData,isdeleted=@IsDeleted,ImgExt=@ImgExt WHERE id=@ID";
-                        var parameters = new { TrainingName = Training.TrainingName, TraningCategory = Training.TrainingCategory, Explanation = Training.Explanation, ImgData = Training.ImgData, IsDeleted = Training.Isdeleted, ID= Training.Id, ImgExt = Training.ImgExt };
+                        var query = "Update tblTrainings SET TrainingName=@TrainingName,TrainingCategoryId=@TraningCategory,Explanation=@Explanation,ImgData=@ImgData,isdeleted=@IsDeleted,ImgExt=@ImgExt WHERE id=@ID";
+                        var parameters = new { TrainingName = Training.TrainingName, TraningCategory = Training.TrainingCategoryId, Explanation = Training.Explanation, ImgData = Training.ImgData, IsDeleted = Training.Isdeleted, ID= Training.Id, ImgExt = Training.ImgExt };
                         connection.QuerySingleOrDefault<TrainingModel>(query, parameters);
                 }
             }

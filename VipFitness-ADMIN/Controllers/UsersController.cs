@@ -45,7 +45,10 @@ namespace VipFitness_ADMIN.Controllers
 
         }
 
-
+        public ActionResult AddTrainingToUser()
+        {
+            return View();
+        }
 
         public JsonResult GetUserDetails(int Id)
         {
