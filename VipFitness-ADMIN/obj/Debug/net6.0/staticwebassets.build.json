@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "evRhirXWktMx7e/2vW+owhjnz3Ff7DhJTU4oOcvwTG4=",
+  "Hash": "D9jrNCSTwPVmQNjLlUP5LbTlLaoNBeC3r/YOQWcgtws=",
   "Source": "VipFitness-ADMIN",
   "BasePath": "_content/VipFitness-ADMIN",
   "Mode": "Default",
@@ -763,6 +763,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Content\\Home\\Home.css"
+    },
+    {
+      "Identity": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\Home\\Menubar.css",
+      "SourceId": "VipFitness-ADMIN",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\",
+      "BasePath": "_content/VipFitness-ADMIN",
+      "RelativePath": "Content/Home/Menubar.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Content\\Home\\Menubar.css"
     },
     {
       "Identity": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\images\\sort_asc.png",

@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\Content\\Home\\Home.css"
     },
     {
+      "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\Home\\Menubar.css",
+      "PackagePath": "staticwebassets\\Content\\Home\\Menubar.css"
+    },
+    {
       "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\Login\\css\\Login.css",
       "PackagePath": "staticwebassets\\Content\\Login\\css\\Login.css"
     },
