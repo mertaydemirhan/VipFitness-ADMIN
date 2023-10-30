@@ -7,6 +7,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
 builder.Services.AddScoped<ITrainingCatRepository, TrainingCatRepository>();
+builder.Services.AddScoped<IUserTrainingsRepository, UserTrainingsRepository>();
+
 
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {

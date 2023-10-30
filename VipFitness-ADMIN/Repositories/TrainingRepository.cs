@@ -23,6 +23,7 @@ namespace VipFitness_ADMIN.Repositories
                 return connection.Query<TrainingCategory>(query);
             }
         }
+
         public IEnumerable<TrainingModel> GetAllTrainings()
         {
             using (var connection = new SqlConnection(connstring))
@@ -115,6 +116,16 @@ namespace VipFitness_ADMIN.Repositories
             }
         }
 
+        public IEnumerable<ActiveTrainings> GetActiveTrainings()
+        {
+            using (var connection = new SqlConnection(connstring))
+            {
+                connection.Open();
+                var query = "SELECT * FROM [dbo].[GetTrainings] ";
+                var trainingS = connection.Query<ActiveTrainings>(query);
+                return trainingS;
 
+            }
+        }
     }
 }

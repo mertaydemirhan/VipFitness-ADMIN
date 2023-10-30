@@ -1,0 +1,23 @@
+﻿/* Stilize the select element */
+.select {
+    width: 200px; /* Belirli bir genişlik */
+    height: 500px; /* Belirli bir yükseklik */
+    padding: 10px; /* İç içe alan */
+    border: 1px solid #ccc; /* Kenarlık rengi */
+    border-radius: 5px; /* Köşe yuvarlatma */
+    background-color: #fff; /* Arka plan rengi */
+    font-size: 14px; /* Yazı tipi boyutu */
+    color: #333; /* Metin rengi */
+}
+
+    /* Stilize the options inside the select element */
+    .select option {
+        background-color: #fff; /* Arka plan rengi */
+        color: #333; /* Metin rengi */
+        font-size: 14px; /* Yazı tipi boyutu */
+    }
+
+        /* Hover effect for options */
+        .select option:hover {
+            background-color: #f2f2f2; /* Hover rengi */
+        }

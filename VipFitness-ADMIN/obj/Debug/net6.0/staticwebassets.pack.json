@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\Content\\Login\\css\\Login.css"
     },
     {
+      "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\UserTrainings\\usertrainings.css",
+      "PackagePath": "staticwebassets\\Content\\UserTrainings\\usertrainings.css"
+    },
+    {
       "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\Users\\Users.css",
       "PackagePath": "staticwebassets\\Content\\Users\\Users.css"
     },
@@ -173,6 +177,30 @@
       "PackagePath": "staticwebassets\\Content\\css\\datatables.min.css"
     },
     {
+      "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\css\\fixedHeader.dataTables.min.css",
+      "PackagePath": "staticwebassets\\Content\\css\\fixedHeader.dataTables.min.css"
+    },
+    {
+      "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\css\\jquery-ui.min.css",
+      "PackagePath": "staticwebassets\\Content\\css\\jquery-ui.min.css"
+    },
+    {
+      "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\css\\jquery-ui.structure.css",
+      "PackagePath": "staticwebassets\\Content\\css\\jquery-ui.structure.css"
+    },
+    {
+      "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\css\\jquery-ui.structure.min.css",
+      "PackagePath": "staticwebassets\\Content\\css\\jquery-ui.structure.min.css"
+    },
+    {
+      "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\css\\jquery-ui.theme.css",
+      "PackagePath": "staticwebassets\\Content\\css\\jquery-ui.theme.css"
+    },
+    {
+      "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\css\\jquery-ui.theme.min.css",
+      "PackagePath": "staticwebassets\\Content\\css\\jquery-ui.theme.min.css"
+    },
+    {
       "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\css\\jquery.dataTables.css",
       "PackagePath": "staticwebassets\\Content\\css\\jquery.dataTables.css"
     },
@@ -183,6 +211,10 @@
     {
       "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\css\\mixins.scss",
       "PackagePath": "staticwebassets\\Content\\css\\mixins.scss"
+    },
+    {
+      "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\css\\select2.min.css",
+      "PackagePath": "staticwebassets\\Content\\css\\select2.min.css"
     },
     {
       "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\css\\sweetalert2.min.css",
@@ -225,10 +257,6 @@
       "PackagePath": "staticwebassets\\Content\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\js\\buttons.dataTables.min.css",
-      "PackagePath": "staticwebassets\\Content\\js\\buttons.dataTables.min.css"
-    },
-    {
       "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\js\\buttons.html5.min.js",
       "PackagePath": "staticwebassets\\Content\\js\\buttons.html5.min.js"
     },
@@ -255,10 +283,6 @@
     {
       "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\js\\dataTables.bootstrap5.js",
       "PackagePath": "staticwebassets\\Content\\js\\dataTables.bootstrap5.js"
-    },
-    {
-      "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\js\\dataTables.bootstrap5.min.css",
-      "PackagePath": "staticwebassets\\Content\\js\\dataTables.bootstrap5.min.css"
     },
     {
       "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\js\\dataTables.bootstrap5.min.js",
@@ -309,10 +333,6 @@
       "PackagePath": "staticwebassets\\Content\\js\\dataTables.semanticui.min.js"
     },
     {
-      "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\js\\fixedHeader.dataTables.min.css",
-      "PackagePath": "staticwebassets\\Content\\js\\fixedHeader.dataTables.min.css"
-    },
-    {
       "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\js\\jquery-3.7.0.js",
       "PackagePath": "staticwebassets\\Content\\js\\jquery-3.7.0.js"
     },
@@ -323,6 +343,14 @@
     {
       "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\js\\jquery-3.7.1.min.js",
       "PackagePath": "staticwebassets\\Content\\js\\jquery-3.7.1.min.js"
+    },
+    {
+      "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\js\\jquery-ui.js",
+      "PackagePath": "staticwebassets\\Content\\js\\jquery-ui.js"
+    },
+    {
+      "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\js\\jquery-ui.min.js",
+      "PackagePath": "staticwebassets\\Content\\js\\jquery-ui.min.js"
     },
     {
       "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\js\\jquery.dataTables.js",
@@ -339,6 +367,10 @@
     {
       "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\js\\pdfmake.min.js",
       "PackagePath": "staticwebassets\\Content\\js\\pdfmake.min.js"
+    },
+    {
+      "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\js\\select2.min.js",
+      "PackagePath": "staticwebassets\\Content\\js\\select2.min.js"
     },
     {
       "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\js\\sweetalert2.all.min.js",

@@ -163,7 +163,7 @@
                                         @Html.DisplayFor(modelItem => item.UTypeString)
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Antreman Ekle","", new{Id = item.id}, new{ @class = "btn btn-success btn-sm", onclick="return AddTrainingToUser("+item.id+");"})
+                                        @Html.ActionLink("Antreman Ekle","AddTrainingToUser", new{userID = item.id}, new{ @class = "btn btn-success btn-sm"}) <!-- ,onclick="return AddTrainingToUser("+item.id+");"-->
                                         <button type="button" class="btn btn-primary btn-sm edit-btn" data-id="@item.id">Düzenle</button>
                                         @Html.ActionLink("Delete", "Delete", new { Id = item.id }, new { @class = "btn btn-danger btn-sm", onclick = "return ConfirmDelete("+item.id+");"})
                                     </td>
@@ -181,7 +181,26 @@
 </div>
 <script>
 
+    // BU ALANAA ANTREMAN EKLE İÇİN SCRİPT YAZILACAK...
 
+   /* function AddTrainingToUser(userID) {
+        // AJAX isteği gönder
+        $.ajax({
+            type: "POST",
+            url: "/Users/AddTrainingToUser", // ControllerAdi: Hedef controller'ın adı, ActionAdi: Hedef action'ın adı
+            data: {
+                id: userID
+            },
+            success: function (result) {
+                // Başarılı cevap durumunda yapılacak işlemler
+                console.log(result);
+            },
+            error: function (error) {
+                // Hata durumunda yapılacak işlemler
+                console.log(error);
+            }
+        });
+    }*/
 
     // Datatable aktarım butonlarını aktif ettim.
     $(document).ready(function () {

@@ -12,6 +12,7 @@ namespace VipFitness_ADMIN.Controllers
         public UsersController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
+
         }
         public ActionResult Users()
         {
@@ -45,9 +46,9 @@ namespace VipFitness_ADMIN.Controllers
 
         }
 
-        public ActionResult AddTrainingToUser()
+        public IActionResult AddTrainingToUser(int userID)
         {
-            return View();
+            return RedirectToAction("UserTrainings", "UserTrainings", new { userID = userID });
         }
 
         public JsonResult GetUserDetails(int Id)

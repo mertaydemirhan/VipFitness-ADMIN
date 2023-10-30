@@ -1,0 +1,54 @@
+﻿@model IEnumerable<VipFitness_ADMIN.Models.UserTrainings>
+
+@{
+    ViewData["Title"] = "Kullanıcı Antreman Atama Sayfası";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/UserTrainings/usertrainings.css" rel="stylesheet"/>
+    <script src="~/Content/js/jquery-3.7.1.min.js"></script>
+    <script src="~/Content/js/jquery-ui.min.js"></script>
+    <script src="~/Content/js/select2.min.js"></script>
+    <link href="~/Content/css/select2.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <text> @ViewBag.SelectedUser.username Kullanıcısının Antreman Listesi </text>
+    </div>
+    <div>
+        <label> 1.Antreman Grubu</label>
+        <select class="select1" multiple data-mdb-filter="true">
+            @foreach (var item in ViewBag.ActiveTrainings)
+            {
+                <option value="@item.id">@item.TrainingName</option>
+            }
+        </select>
+
+        <div class="col-md-6" style="font-family:Arial">
+            @if (Model != null)
+            {
+
+            }
+            <br />
+            <input type="button" value="move right" />
+        </div>
+    </div>
+
+    <button id="save-button">Kaydet</button>
+    <script>
+        $(document).ready(function () {
+            $('.select1').select2();
+        });
+
+            $("#save-button").click(function () {
+            var selectedItems = $('.select').val(); // Seçilen öğeleri al
+            console.log(selectedItems); // Seçilen öğeleri konsola yazdır (isteğe bağlı)
+
+        });
+    </script>
+</body>
+</html>

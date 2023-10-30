@@ -45,29 +45,34 @@
         function redirectToController(controller, action) {
             window.location.href = "/" + controller + "/" + action;
         }
+
+       
     </script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function (event) {
 
-            const showNavbar = (toggleId, navId, bodyId, headerId) => {
+            function showNavbar(toggleId, navId, bodyId, headerId) {
                 const toggle = document.getElementById(toggleId),
                     nav = document.getElementById(navId),
                     bodypd = document.getElementById(bodyId),
-                    headerpd = document.getElementById(headerId)
+                    headerpd = document.getElementById(headerId);
 
                 // Validate that all variables exist
                 if (toggle && nav && bodypd && headerpd) {
+                    // Open the navbar by triggering a click event on the toggle button
+                    toggle.click();
+
                     toggle.addEventListener('click', () => {
                         // show navbar
-                        nav.classList.toggle('show')
+                        nav.classList.toggle('show');
                         // change icon
-                        toggle.classList.toggle('bx-x')
+                        toggle.classList.toggle('bx-x');
                         // add padding to body
-                        bodypd.classList.toggle('body-pd')
+                        bodypd.classList.toggle('body-pd');
                         // add padding to header
-                        headerpd.classList.toggle('body-pd')
-                    })
+                        headerpd.classList.toggle('body-pd');
+                    });
                 }
             }
 
