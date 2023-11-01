@@ -9,42 +9,94 @@
 <html>
 <head>
     <title>@ViewBag.Title</title>
-    <link href="~/Content/UserTrainings/usertrainings.css" rel="stylesheet"/>
+    <link href="~/Content/UserTrainings/usertrainings.css" rel="stylesheet" />
     <script src="~/Content/js/jquery-3.7.1.min.js"></script>
     <script src="~/Content/js/jquery-ui.min.js"></script>
     <script src="~/Content/js/select2.min.js"></script>
     <link href="~/Content/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
-    <div>
-        <text> @ViewBag.SelectedUser.username Kullanıcısının Antreman Listesi </text>
-    </div>
-    <div>
-        <label> 1.Antreman Grubu</label>
-        <select class="select1" multiple data-mdb-filter="true">
-            @foreach (var item in ViewBag.ActiveTrainings)
-            {
-                <option value="@item.id">@item.TrainingName</option>
-            }
-        </select>
-
-        <div class="col-md-6" style="font-family:Arial">
-            @if (Model != null)
-            {
-
-            }
-            <br />
-            <input type="button" value="move right" />
+    <div class="container">
+        <div class="h3">
+            <text> <b>@ViewBag.SelectedUser.username</b> Kullanıcısının Antreman Listesi </text>
         </div>
+        <div> 
+            <div class="label">1.Antreman Grubu</div>
+            <select class="select1" multiple data-mdb-filter="true">
+                @foreach (var item in ViewBag.ActiveTrainings)
+                {
+                    <option value="@item.id">@item.TrainingName</option>
+                }
+            </select>
+        </div>
+        <div>
+            <div class="label">2.Antreman Grubu</div>
+            <select class="select2" multiple data-mdb-filter="true">
+                @foreach (var item in ViewBag.ActiveTrainings)
+                {
+                    <option value="@item.id">@item.TrainingName</option>
+                }
+            </select>
+        </div>
+        <div>
+            <div class="label">3.Antreman Grubu</div>
+            <select class="select3" multiple data-mdb-filter="true">
+                @foreach (var item in ViewBag.ActiveTrainings)
+                {
+                    <option value="@item.id">@item.TrainingName</option>
+                }
+            </select>
+        </div>
+        <div>
+            <div class="label">4.Antreman Grubu</div>
+            <select class="select4" multiple data-mdb-filter="true">
+                @foreach (var item in ViewBag.ActiveTrainings)
+                {
+                    <option value="@item.id">@item.TrainingName</option>
+                }
+            </select>
+        </div>
+        <div>
+            <div class="label">5.Antreman Grubu</div>
+            <select class="select5" multiple data-mdb-filter="true">
+                @foreach (var item in ViewBag.ActiveTrainings)
+                {
+                    <option value="@item.id">@item.TrainingName</option>
+                }
+            </select>
+        </div>
+        <div>
+            <div class="label">6.Antreman Grubu</div>
+            <select class="select6" multiple data-mdb-filter="true">
+                @foreach (var item in ViewBag.ActiveTrainings)
+                {
+                    <option value="@item.id">@item.TrainingName</option>
+                }
+            </select>
+        </div>
+        <div>
+            <div class="label">7.Antreman Grubu</div>
+            <select class="select7" multiple data-mdb-filter="true">
+                @foreach (var item in ViewBag.ActiveTrainings)
+                {
+                    <option value="@item.id">@item.TrainingName</option>
+                }
+            </select>
+        </div>
+        <button id="save-button">Kaydet</button>
     </div>
-
-    <button id="save-button">Kaydet</button>
     <script>
         $(document).ready(function () {
             $('.select1').select2();
+            $('.select2').select2();
+            $('.select3').select2();
+            $('.select4').select2();
+            $('.select5').select2();
+            $('.select6').select2();
+            $('.select7').select2();
         });
 
-            $("#save-button").click(function () {
+        $("#save-button").click(function () {
             var selectedItems = $('.select').val(); // Seçilen öğeleri al
             console.log(selectedItems); // Seçilen öğeleri konsola yazdır (isteğe bağlı)
 

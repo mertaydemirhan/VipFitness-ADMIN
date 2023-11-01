@@ -51,47 +51,41 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function (event) {
+            const bodypd = document.getElementById('body-pd');
+            const headerpd = document.getElementById('header');
+            const navToggle = document.getElementById('header-toggle');
+            const navBar = document.getElementById('nav-bar');
 
-            function showNavbar(toggleId, navId, bodyId, headerId) {
-                const toggle = document.getElementById(toggleId),
-                    nav = document.getElementById(navId),
-                    bodypd = document.getElementById(bodyId),
-                    headerpd = document.getElementById(headerId);
+            // Menüyü başlangıçta otomatik olarak aç
+            navBar.classList.add('show');
+            navToggle.classList.add('bx-x');
+            bodypd.classList.add('body-pd');
+            headerpd.classList.add('body-pd');
 
-                // Validate that all variables exist
-                if (toggle && nav && bodypd && headerpd) {
-                    // Open the navbar by triggering a click event on the toggle button
-                    toggle.click();
-
-                    toggle.addEventListener('click', () => {
-                        // show navbar
-                        nav.classList.toggle('show');
-                        // change icon
-                        toggle.classList.toggle('bx-x');
-                        // add padding to body
-                        bodypd.classList.toggle('body-pd');
-                        // add padding to header
-                        headerpd.classList.toggle('body-pd');
-                    });
-                }
-            }
-
-            showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
+            navToggle.addEventListener('click', () => {
+                // Menüyü açıp/kapat
+                navBar.classList.toggle('show');
+                // İkonu değiştir
+                navToggle.classList.toggle('bx-x');
+                // Body ve header'a padding ekle/çıkar
+                bodypd.classList.toggle('body-pd');
+                headerpd.classList.toggle('body-pd');
+            });
 
             /*===== LINK ACTIVE =====*/
-            const linkColor = document.querySelectorAll('.nav_link')
+            const linkColor = document.querySelectorAll('.nav_link');
 
             function colorLink() {
                 if (linkColor) {
-                    linkColor.forEach(l => l.classList.remove('active'))
-                    this.classList.add('active')
+                    linkColor.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
                 }
             }
-            linkColor.forEach(l => l.addEventListener('click', colorLink))
+            linkColor.forEach(l => l.addEventListener('click', colorLink));
 
-            // Your code to run since DOM is loaded and ready
-
+            // DOM hazır olduğunda çalışacak kodlar buraya yazılır
         });
+
 
 
     </script>

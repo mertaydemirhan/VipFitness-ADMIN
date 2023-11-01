@@ -1,23 +1,82 @@
 ﻿/* Stilize the select element */
-.select {
-    width: 200px; /* Belirli bir genişlik */
-    height: 500px; /* Belirli bir yükseklik */
-    padding: 10px; /* İç içe alan */
-    border: 1px solid #ccc; /* Kenarlık rengi */
-    border-radius: 5px; /* Köşe yuvarlatma */
-    background-color: #fff; /* Arka plan rengi */
-    font-size: 14px; /* Yazı tipi boyutu */
-    color: #333; /* Metin rengi */
-}
+/*.select {
+    width: 200px;*/ /* Belirli bir genişlik */
+    /*height: 500px;*/ /* Belirli bir yükseklik */
+    /*padding: 10px;*/ /* İç içe alan */
+    /*border: 1px solid #ccc;*/ /* Kenarlık rengi */
+    /*border-radius: 5px;*/ /* Köşe yuvarlatma */
+    /*background-color: #fff;*/ /* Arka plan rengi */
+    /*font-size: 14px;*/ /* Yazı tipi boyutu */
+    /*color: #333;*/ /* Metin rengi */
+/*}*/
 
     /* Stilize the options inside the select element */
-    .select option {
-        background-color: #fff; /* Arka plan rengi */
-        color: #333; /* Metin rengi */
-        font-size: 14px; /* Yazı tipi boyutu */
-    }
+    /*.select option {
+        background-color: #fff;*/ /* Arka plan rengi */
+        /*color: #333;*/ /* Metin rengi */
+        /*font-size: 14px;*/ /* Yazı tipi boyutu */
+    /*}*/
 
         /* Hover effect for options */
-        .select option:hover {
-            background-color: #f2f2f2; /* Hover rengi */
-        }
+        /*.select option:hover {
+            background-color: #f2f2f2;*/ /* Hover rengi */
+        /*}*/
+
+/* Genel stil ayarları */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 50px;
+}
+
+.header {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.label {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Select elementlerinin stili */
+.select2 {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Kaydet butonunun stili */
+#save-button {
+    background-color: #4caf50;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+    #save-button:hover {
+        background-color: #45a049;
+    }
+
