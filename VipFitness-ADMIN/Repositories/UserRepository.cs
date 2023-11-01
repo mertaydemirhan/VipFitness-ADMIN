@@ -85,7 +85,7 @@ namespace VipFitness_ADMIN.Repositories
             }
             catch (Exception ex)
             {
-              //
+                object value = ex;
             }
 
         }

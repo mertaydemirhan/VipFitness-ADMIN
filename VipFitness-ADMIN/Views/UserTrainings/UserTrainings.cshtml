@@ -20,17 +20,29 @@
         <div class="h3">
             <text> <b>@ViewBag.SelectedUser.username</b> Kullanıcısının Antreman Listesi </text>
         </div>
-        <div> 
-            <div class="label">1.Antreman Grubu</div>
-            <select class="select1" multiple data-mdb-filter="true">
-                @foreach (var item in ViewBag.ActiveTrainings)
-                {
-                    <option value="@item.id">@item.TrainingName</option>
-                }
-            </select>
+        <div class="modal" id="setInfoModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modaltitle_s1">Set Bilgisi Girin</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="setInfo">Set Bilgisi:</label>
+                                <input type="text"  class="form-control" id="setInfo">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="saveSetInfo">Kaydet</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
+
+
         <div>
-            <div class="label">2.Antreman Grubu</div>
+            <div class="label">1.Antreman Grubu</div>
             <select class="select2" multiple data-mdb-filter="true">
                 @foreach (var item in ViewBag.ActiveTrainings)
                 {
@@ -39,7 +51,7 @@
             </select>
         </div>
         <div>
-            <div class="label">3.Antreman Grubu</div>
+            <div class="label">2.Antreman Grubu</div>
             <select class="select3" multiple data-mdb-filter="true">
                 @foreach (var item in ViewBag.ActiveTrainings)
                 {
@@ -48,7 +60,7 @@
             </select>
         </div>
         <div>
-            <div class="label">4.Antreman Grubu</div>
+            <div class="label">3.Antreman Grubu</div>
             <select class="select4" multiple data-mdb-filter="true">
                 @foreach (var item in ViewBag.ActiveTrainings)
                 {
@@ -57,7 +69,7 @@
             </select>
         </div>
         <div>
-            <div class="label">5.Antreman Grubu</div>
+            <div class="label">4.Antreman Grubu</div>
             <select class="select5" multiple data-mdb-filter="true">
                 @foreach (var item in ViewBag.ActiveTrainings)
                 {
@@ -66,7 +78,7 @@
             </select>
         </div>
         <div>
-            <div class="label">6.Antreman Grubu</div>
+            <div class="label">5.Antreman Grubu</div>
             <select class="select6" multiple data-mdb-filter="true">
                 @foreach (var item in ViewBag.ActiveTrainings)
                 {
@@ -74,8 +86,9 @@
                 }
             </select>
         </div>
+
         <div>
-            <div class="label">7.Antreman Grubu</div>
+            <div class="label">6.Antreman Grubu</div>
             <select class="select7" multiple data-mdb-filter="true">
                 @foreach (var item in ViewBag.ActiveTrainings)
                 {
@@ -83,24 +96,108 @@
                 }
             </select>
         </div>
+
+        <div>
+            <div class="label"> 7.Antreman Grubu</div>
+            <select class="select8" multiple data-mdb-filter="true">
+                @foreach (var item in ViewBag.ActiveTrainings)
+                {
+                    <option value="@item.id">@item.TrainingName</option>
+                }
+            </select>
+        </div>
+
         <button id="save-button">Kaydet</button>
     </div>
+
     <script>
+        var trainingData = {};  // Seçilecek antremanları saklayacağımız objeyi tanımladık.
+
         $(document).ready(function () {
-            $('.select1').select2();
-            $('.select2').select2();
-            $('.select3').select2();
-            $('.select4').select2();
-            $('.select5').select2();
-            $('.select6').select2();
-            $('.select7').select2();
+            try {
+                $('.select2').select2();
+                $('.select3').select2();
+                $('.select4').select2();
+                $('.select5').select2();
+                $('.select6').select2();
+                $('.select7').select2();
+                $('.select8').select2();
+            }
+            catch (error) {
+                console.error("select değerleri yüklenirken hata oluştu: ", error);
+            }
+
         });
 
         $("#save-button").click(function () {
             var selectedItems = $('.select').val(); // Seçilen öğeleri al
             console.log(selectedItems); // Seçilen öğeleri konsola yazdır (isteğe bağlı)
+            sendDataToServer(trainingData);
 
         });
+
+        $('.select2').select2().on('select2:unselect', function (e) {
+            var unselectedOption = $(e.params.data.element);
+            var unselectedTrainingId = unselectedOption.val();
+            delete trainingData[unselectedTrainingId]; // Antrenmanı trainingData objesinden kaldır
+            console.log(trainingData); // Değişiklikleri konsola yazdır
+        });
+
+        $('.select2').on('select2:select', function (e) {
+            var selectedOption = $(e.params.data.element);
+            var trainingId = selectedOption.val();
+            var trainingName = selectedOption.text();
+            var selectedValue = parseInt($('.select2').val());
+
+            $('#modaltitle_s1').text(trainingName + ' Antremanı Set Bilgisi');
+            $('#setInfoModal').modal('show');
+
+            $('#saveSetInfo').on('click', function () {
+                var setInfo = $('#setInfo').val();
+
+                // Eklenecek veriyi oluştur
+                var newData = {
+                    TrainingId: trainingId,
+                    TrainingName: trainingName,
+                    TrainingType: selectedValue,
+                    SetInfo: setInfo,
+                    SortNo: Object.keys(trainingData).length + 1,
+                    username: @Json.Serialize(ViewBag.SelectedUser.username),
+                    isActive: true,
+                    userID: parseInt(@Json.Serialize(ViewBag.SelectedUser.id))
+                };
+
+                // Eğer aynı kayıt yoksa veriyi ekle
+                if (!(trainingId in trainingData) || JSON.stringify(trainingData[trainingId].TrainingType) !== JSON.stringify(newData.TrainingType)) {
+                    trainingData[trainingId] = newData;
+                    console.log(trainingData);
+                }
+
+                // Modalı kapat
+                $('#setInfoModal').modal('hide');
+            });
+        });
+
+
+        function sendDataToServer() {
+            var dataArray = Object.values(trainingData); // Obje içindeki verileri diziye dönüştürdük.
+            $.ajax({
+                url: '/api/UserTrainings/GetDatas',
+                type: 'POST',
+                data: JSON.stringify(dataArray), // Veriyi nesne içinde gönder
+                contentType: 'application/json',
+                traditional: true, // jQuery tarafından veriyi doğru şekilde encode etmek için traditional ayarı yaptık.
+                dataType: 'json', // Sunucudan dönen verinin tipi json olmalı.
+                success: function (response) {
+                    console.log(response); // Sunucudan dönen yanıtı burada işleyebilirsiniz
+                },
+                error: function (error,xhr, status) {
+                    console.error(error);
+                    console.error(xhr);
+                }
+            });
+        }
+
     </script>
 </body>
 </html>

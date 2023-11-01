@@ -4,6 +4,8 @@ using VipFitness_ADMIN.Repositories;
 
 namespace VipFitness_ADMIN.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class UserTrainingsController : Controller
     {
 
@@ -35,6 +37,20 @@ namespace VipFitness_ADMIN.Controllers
             }
 
             return View(userTrainings);
+        }
+
+        [HttpPost("GetDatas")]
+        public JsonResult GetDatas([FromBody] List<TrainingDataModel> trainingData)
+        {
+
+             // insert işlemleri yapılacak.... rez
+            var result = new
+            {
+                success = true,
+                message = "Veriler başarıyla alındı."
+            };
+
+            return Json(result);
         }
 
     }
