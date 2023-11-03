@@ -1,4 +1,4 @@
-﻿@model IEnumerable<VipFitness_ADMIN.Models.UserTrainings>
+﻿@model IEnumerable<VipFitness_ADMIN.Models.TrainingDataModel>
 
 @{
     ViewData["Title"] = "Kullanıcı Antreman Atama Sayfası";
@@ -12,34 +12,32 @@
     <link href="~/Content/UserTrainings/usertrainings.css" rel="stylesheet" />
     <script src="~/Content/js/jquery-3.7.1.min.js"></script>
     <script src="~/Content/js/jquery-ui.min.js"></script>
+    <script src="~/Content/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/js/popper.min.js"></script>
     <script src="~/Content/js/select2.min.js"></script>
+    <script src="~/Content/js/sweetalert2.all.min.js"></script>
     <link href="~/Content/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
+  
     <div class="container">
-        <div class="h3">
-            <text> <b>@ViewBag.SelectedUser.username</b> Kullanıcısının Antreman Listesi </text>
-        </div>
-        <div class="modal" id="setInfoModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modaltitle_s1">Set Bilgisi Girin</h5>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="setInfo">Set Bilgisi:</label>
-                                <input type="text"  class="form-control" id="setInfo">
-                            </div>
-                            <button type="button" class="btn btn-primary" id="saveSetInfo">Kaydet</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
 
+            <div class="h3">
+                <text> <b>@ViewBag.SelectedUser.username</b> Kullanıcısına  Atanacak Antremanları seçiniz.</text>
+            </div>
+
+          <div>
+            <label>
+                <input type="checkbox" class="alertCheckbox" autocomplete="off" />
+                <div class="alert warning">
+                    <span class="alertClose">X</span>
+                    <span class="alertText">
+                        <b>Lütfen !</b> tüm antremanları seçtikten sonra kaydet butonuna basınız. Aksi takdirde eski yaptığınız antreman kayıtları silinip son kaydedilen baz alınacaktır.
+                        <br class="clear" />
+                    </span>
+                </div>
+            </label>
+          </div>
 
         <div>
             <div class="label">1.Antreman Grubu</div>
@@ -107,11 +105,44 @@
             </select>
         </div>
 
+
+        <div class="modal fade" id="setInfoModal" tabindex="-1" role="dialog" aria-labelledby="modaltitle_s1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-oval" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modaltitle_s1">Set Bilgisi Girin</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="setInfo">Set Bilgisi:</label>
+                                <input type="text" class="form-control" id="setInfo">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="saveSetInfo">Kaydet</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <button id="save-button">Kaydet</button>
     </div>
 
     <script>
         var trainingData = {};  // Seçilecek antremanları saklayacağımız objeyi tanımladık.
+        var groupedTrainingIds = {
+            1: [],
+            2: [],
+            3: [],
+            4: [],
+            5: [],
+            6: [],
+            7: []
+        };
 
         $(document).ready(function () {
             try {
@@ -127,56 +158,97 @@
                 console.error("select değerleri yüklenirken hata oluştu: ", error);
             }
 
+            var modelData = @Html.Raw(Json.Serialize(Model));
+
+            if (modelData && modelData.length > 0) {
+                modelData.forEach(function (item) {
+                    trainingData[item.trainingId] = {
+                        TrainingId: item.trainingId,
+                        TrainingName: item.trainingName,
+                        TrainingType: item.trainingType,
+                        SetInfo: item.setInfo,
+                        SortNo: Object.keys(trainingData).length + 1,
+                        username: @Json.Serialize(ViewBag.SelectedUser.username),
+                        isActive: true,
+                        userID: parseInt(@Json.Serialize(ViewBag.SelectedUser.id))
+                    };
+                    groupedTrainingIds[item.trainingType].push(item.trainingId);
+                });
+
+
+                $('.select2').val(groupedTrainingIds[1]).trigger('change');
+                $('.select3').val(groupedTrainingIds[2]).trigger('change');
+                $('.select4').val(groupedTrainingIds[3]).trigger('change');
+                $('.select5').val(groupedTrainingIds[4]).trigger('change');
+                $('.select6').val(groupedTrainingIds[5]).trigger('change');
+                $('.select7').val(groupedTrainingIds[6]).trigger('change');
+                $('.select8').val(groupedTrainingIds[7]).trigger('change');
+
+
+                // SelectProcess fonksiyonu kullanılarak select2 için işlem yapılır
+                SelectProcess('select2:unselect', $('.select2'),1);
+                SelectProcess('select2:select', $('.select2'),1);
+                // Diğer selectler için de aynı şekilde işlemler yapılır
+                SelectProcess('select2:unselect', $('.select3'),2);
+                SelectProcess('select2:select', $('.select3'),2);
+                SelectProcess('select2:unselect', $('.select4'),3);
+                SelectProcess('select2:select', $('.select4'),3);
+                SelectProcess('select2:unselect', $('.select5'),4);
+                SelectProcess('select2:select', $('.select5'),4);
+                SelectProcess('select2:unselect', $('.select6'),5);
+                SelectProcess('select2:select', $('.select6'),5);
+                SelectProcess('select2:unselect', $('.select7'),6);
+                SelectProcess('select2:select', $('.select7'),6);
+                SelectProcess('select2:unselect', $('.select8'),7);
+                SelectProcess('select2:select', $('.select8'),7);
+
+                
+            }
         });
 
-        $("#save-button").click(function () {
-            var selectedItems = $('.select').val(); // Seçilen öğeleri al
-            console.log(selectedItems); // Seçilen öğeleri konsola yazdır (isteğe bağlı)
-            sendDataToServer(trainingData);
+        function generateUniqueTrainingId() {
+            // Rasgele ve benzersiz bir trainingId oluştur
+            return Math.floor(Math.random() * 1000000);
+        }
+        // AŞAĞIDAKİ FONKSİYON, Select alanların seçim ve seçimi kapatma işlemleri için yazıldı.
 
-        });
+        function SelectProcess(eventType, selectElement, selectedValue) {
+            selectElement.on(eventType, function (e) {
+                var selectedOption = $(e.params.data.element);
+                var TrainingId = generateUniqueTrainingId();
+                var trainingName = selectedOption.text();
 
-        $('.select2').select2().on('select2:unselect', function (e) {
-            var unselectedOption = $(e.params.data.element);
-            var unselectedTrainingId = unselectedOption.val();
-            delete trainingData[unselectedTrainingId]; // Antrenmanı trainingData objesinden kaldır
-            console.log(trainingData); // Değişiklikleri konsola yazdır
-        });
+                $('#modaltitle_s1').text(trainingName + ' Antremanı Set Bilgisi');
+                $('#setInfoModal').modal('show');
 
-        $('.select2').on('select2:select', function (e) {
-            var selectedOption = $(e.params.data.element);
-            var trainingId = selectedOption.val();
-            var trainingName = selectedOption.text();
-            var selectedValue = parseInt($('.select2').val());
+                $('#saveSetInfo').on('click', function () {
+                    var setInfo = $('#setInfo').val();
+                    debugger;
+                    // SetInfo boş değil ve geçerli bir değerse
+                    if (setInfo.trim() !== '') {
 
-            $('#modaltitle_s1').text(trainingName + ' Antremanı Set Bilgisi');
-            $('#setInfoModal').modal('show');
-
-            $('#saveSetInfo').on('click', function () {
-                var setInfo = $('#setInfo').val();
-
-                // Eklenecek veriyi oluştur
-                var newData = {
-                    TrainingId: trainingId,
-                    TrainingName: trainingName,
-                    TrainingType: selectedValue,
-                    SetInfo: setInfo,
-                    SortNo: Object.keys(trainingData).length + 1,
-                    username: @Json.Serialize(ViewBag.SelectedUser.username),
-                    isActive: true,
-                    userID: parseInt(@Json.Serialize(ViewBag.SelectedUser.id))
-                };
-
-                // Eğer aynı kayıt yoksa veriyi ekle
-                if (!(trainingId in trainingData) || JSON.stringify(trainingData[trainingId].TrainingType) !== JSON.stringify(newData.TrainingType)) {
-                    trainingData[trainingId] = newData;
-                    console.log(trainingData);
-                }
-
-                // Modalı kapat
-                $('#setInfoModal').modal('hide');
+                            // Eklenecek veriyi oluştur
+                           trainingData[TrainingId] = {
+                                trainingId: selectedOption.val(),
+                                TrainingName: trainingName,
+                                TrainingType: selectedValue,
+                                SetInfo: setInfo,
+                                SortNo: Object.keys(trainingData).length + 1,
+                                username: @Json.Serialize(ViewBag.SelectedUser.username),
+                                isActive: true,
+                                userID: parseInt(@Json.Serialize(ViewBag.SelectedUser.id))
+                            };
+                            console.log(trainingData);
+                        // Modalı kapat
+                        $('#setInfoModal').modal('hide');
+                    } else {
+                        // SetInfo boşsa kullanıcıya uyarı ver
+                        alert('SetInfo bilgisini giriniz!');
+                    }
+                });
             });
-        });
+        }
+
 
 
         function sendDataToServer() {
@@ -187,9 +259,21 @@
                 data: JSON.stringify(dataArray), // Veriyi nesne içinde gönder
                 contentType: 'application/json',
                 traditional: true, // jQuery tarafından veriyi doğru şekilde encode etmek için traditional ayarı yaptık.
-                dataType: 'json', // Sunucudan dönen verinin tipi json olmalı.
+                dataType: 'json', // Sunucudan dönen verinin tipi json 
                 success: function (response) {
-                    console.log(response); // Sunucudan dönen yanıtı burada işleyebilirsiniz
+                    console.log(response); // Sunucudan dönen yanıt
+                    swal.fire({
+                        title: "Başarılı!",
+                        text: "Antremanlar başarıyla kaydedildi.",
+                        icon: "success",
+                        confirmButtonText: "Tamam",
+                        timer: 3000 
+                    }).then((result) => {
+                        if (result.isConfirmed || result.dismiss === swal.DismissReason.timer) {
+                            // Yönlendirme işlemi
+                            window.location.href = '/Users/Users';
+                        }
+                    });
                 },
                 error: function (error,xhr, status) {
                     console.error(error);
@@ -197,6 +281,16 @@
                 }
             });
         }
+
+
+        // SON tıklanan kaydet butonu
+
+        $("#save-button").click(function () {
+            var selectedItems = $('.select').val(); // Seçilen öğeleri al
+            console.log(selectedItems); // Seçilen öğeleri konsola yazdır (isteğe bağlı)
+            sendDataToServer(trainingData);
+
+        });
 
     </script>
 </body>

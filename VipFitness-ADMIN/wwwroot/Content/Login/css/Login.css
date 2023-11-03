@@ -19,3 +19,7 @@
         border-bottom-right-radius: .3rem;
     }
 }
+
+.nav_name {
+    text-decoration: none;
+}

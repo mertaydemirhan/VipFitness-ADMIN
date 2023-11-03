@@ -24,16 +24,16 @@ namespace VipFitness_ADMIN.Controllers
         
         public ActionResult UserTrainings(int UserID)
         {
-            var userTrainings = _userTrainingsRepository.GetUserTrainingsById(UserID);
+            var userTrainings = _userTrainingsRepository.GetUserTrainingsByUserId(UserID);
             var user = _userRepository.GetUserById(UserID);
             ViewBag.ActiveTrainings = _trainingRepository.GetActiveTrainings();
 
-
-
-            if (userTrainings.Count() !> 0 && user != null)
-            {
-                ViewBag.SelectedUser = user;
+            ViewBag.SelectedUser = user;
+            if ((userTrainings.Count() == 0) && user != null)
                 userTrainings = null;
+            else
+            {
+                _ = userTrainings.Count();
             }
 
             return View(userTrainings);
@@ -42,8 +42,7 @@ namespace VipFitness_ADMIN.Controllers
         [HttpPost("GetDatas")]
         public JsonResult GetDatas([FromBody] List<TrainingDataModel> trainingData)
         {
-
-             // insert işlemleri yapılacak.... rez
+            _userTrainingsRepository.AddUserTrainings(trainingData);
             var result = new
             {
                 success = true,

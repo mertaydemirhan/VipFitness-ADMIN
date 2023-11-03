@@ -38,3 +38,11 @@ div.dataTables_wrapper div.dataTables_paginate {
     background-color: #5D78FF;
     border-color: #5D78FF;
 }
+
+.nav_name {
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
+}

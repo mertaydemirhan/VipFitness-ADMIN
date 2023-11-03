@@ -369,6 +369,10 @@
       "PackagePath": "staticwebassets\\Content\\js\\pdfmake.min.js"
     },
     {
+      "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\js\\popper.min.js",
+      "PackagePath": "staticwebassets\\Content\\js\\popper.min.js"
+    },
+    {
       "Id": "C:\\Users\\merta\\source\\repos\\VipFitness-ADMIN\\VipFitness-ADMIN\\wwwroot\\Content\\js\\select2.min.js",
       "PackagePath": "staticwebassets\\Content\\js\\select2.min.js"
     },

@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
+using NuGet.Protocol.Plugins;
 using VipFitness_ADMIN.Models;
 
 namespace VipFitness_ADMIN.Repositories
@@ -12,17 +13,27 @@ namespace VipFitness_ADMIN.Repositories
             connstring = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public bool AddUserTrainings(UserTrainings userTrainings)
+        public bool AddUserTrainings(List<TrainingDataModel> trainingsData)
         {
-            bool ExistUserTraining = false;
 
-            // Training exist OR NOT  
-            /* DÜZENLENECEK.... */
+            var GetList = GetUserTrainingsByUserId(trainingsData[0].UserId);
 
-            var GetList = GetAllUserTrainings();
             if (GetList.Count() > 0)
             {
-                return false;
+                using (var conn = new SqlConnection(connstring))
+                {
+                    conn.Open();
+                    var query = "DELETE  FROM tblUserTrainings WHERE userId=@UserID";
+                    var parameters = new { UserID = trainingsData[0].UserId };
+                    conn.Query(query, parameters);
+                    query = "INSERT INTO tblUserTrainings(userId,trainingId,setInfo,trainingType,isActive) VALUES(@UserID,@trainingID,@setInfo,@trainingType,@isActive)";
+                    for (int i = 0; i < trainingsData.Count; i++)
+                    {
+                        var Insparameters = new { UserID = trainingsData[i].UserId, trainingID = trainingsData[i].TrainingId, setInfo = trainingsData[i].SetInfo, trainingType = trainingsData[i].TrainingType, isActive = trainingsData[i].IsActive };
+                        var CreatedUser = conn.QuerySingleOrDefault<TrainingModel>(query, Insparameters);
+                    }
+                    return false;
+                }
             }
 
             else 
@@ -32,9 +43,11 @@ namespace VipFitness_ADMIN.Repositories
 
                     connection.Open();
                     var query = "INSERT INTO tblUserTrainings(userId,trainingId,setInfo,trainingType,isActive) VALUES(@UserID,@trainingID,@setInfo,@trainingType,@isActive)";
-                    var parameters = new { UserID = userTrainings.userID, trainingID = userTrainings.trainingID, setInfo = userTrainings.setInfo, trainingType = userTrainings.trainingType, isActive = userTrainings.isActive };
-                    var CreatedUser = connection.QuerySingleOrDefault<TrainingModel>(query, parameters);
-
+                    for (int i = 0; i < trainingsData.Count; i++)
+                    {
+                        var parameters = new { UserID = trainingsData[i].UserId, trainingID = trainingsData[i].TrainingId, setInfo = trainingsData[i].SetInfo, trainingType = trainingsData[i].TrainingType, isActive = trainingsData[i].IsActive };
+                        var CreatedUser = connection.QuerySingleOrDefault<TrainingModel>(query, parameters);
+                    }
                     return true;
                 }
             }
@@ -64,44 +77,18 @@ namespace VipFitness_ADMIN.Repositories
 
         }
 
-        public IEnumerable<UserTrainings> GetUserTrainingsById(int id)
+        public List<TrainingDataModel> GetUserTrainingsByUserId(int id)
         {
             using (var connection = new SqlConnection(connstring))
             {
                 connection.Open();
-                var query = "SELECT * FROM dbo.UserTrainings WHERE id = @ID";
+                var query = "SELECT * FROM dbo.UserTrainings WHERE userId = @ID";
                 var parameters = new { ID = id };
-                var usertraining = connection.QuerySingleOrDefault<UserTrainings>(query, parameters);
+                var usertraining = connection.Query<TrainingDataModel>(query, parameters);
 
-                yield return usertraining;
+                return usertraining.ToList();
             }
         }
 
-        public void UpdateUserTrainings(UserTrainings userTrainings)
-        {
-            try
-            {
-                using (var connection = new SqlConnection(connstring))
-                {
-                    connection.Open();
-
-                    var query = "Update tblUserTrainings SET userId=@userID,trainingId=@trainingID,setInfo=@setINFO,trainingType=@trainingType,isActive=@IsActive WHERE id=@ID";
-                    var parameters = new 
-                    {
-                        userId = userTrainings.userID,
-                        trainingId = userTrainings.trainingID,
-                        setINFO = userTrainings.setInfo,
-                        trainingType = userTrainings.trainingType,
-                        IsActive = userTrainings.isActive,
-                        ID = userTrainings.id
-                    };
-                    connection.QuerySingleOrDefault<UserTrainings>(query, parameters);
-                }
-            }
-            catch (Exception ex)
-            {
-                //
-            }
-        }
     }
 }
