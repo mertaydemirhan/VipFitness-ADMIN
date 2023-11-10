@@ -1,6 +1,8 @@
 ﻿using Dapper;
 using VipFitness_ADMIN.Models;
 using Microsoft.Data.SqlClient;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace VipFitness_ADMIN.Repositories
 {
@@ -26,6 +28,14 @@ namespace VipFitness_ADMIN.Repositories
                 return users;
             }
         }
+        public static string HashPassword(string password)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
+            }
+        }
 
         public bool AddUser(UserModel user)
         {
@@ -48,7 +58,7 @@ namespace VipFitness_ADMIN.Repositories
 
                     connection.Open();
                     var query = "INSERT INTO tblUsers(username,password,UType,isdeleted) VALUES(@UserName,@Password,@UType,@IsDeleted)";
-                    var parameters = new { UserName = user.username, Password = user.password, UType = user.UType, IsDeleted = user.isdeleted };
+                    var parameters = new { UserName = user.username, Password = HashPassword(user.password), UType = user.UType, IsDeleted = user.isdeleted };
                     var CreatedUser = connection.QuerySingleOrDefault<UserModel>(query, parameters);
 
                     return true;
@@ -77,7 +87,7 @@ namespace VipFitness_ADMIN.Repositories
                     else
                     {
                         query = "Update tblUsers SET username=@UserName,password=@Password,UType=@UType WHERE id=@UserID";
-                        var parameters = new { UserName = user.username, Password = user.password, UType = user.UType, UserID = user.id };
+                        var parameters = new { UserName = user.username, Password = HashPassword(user.password), UType = user.UType, UserID = user.id };
                         connection.QuerySingleOrDefault<UserModel>(query, parameters);
                     }
 
