@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\VipFitness-ADMIN.props" />
+</Project>

@@ -5,7 +5,7 @@ using VipFitness_ADMIN.Repositories;
 namespace VipFitness_ADMIN.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class UserTrainingsController : Controller
     {
 
