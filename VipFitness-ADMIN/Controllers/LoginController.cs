@@ -1,15 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using System.Text;
-using VipFitness_ADMIN.Controllers;
 using VipFitness_ADMIN.Models;
 using Dapper;
 using Microsoft.Data.SqlClient;
-using NuGet.Common;
 using System.Security.Cryptography;
-using Microsoft.AspNetCore.Identity;
 
 namespace VipFitness_ADMIN.Controllers
 {
